@@ -11,11 +11,11 @@ A brief description of the application here. This is a gag cite dedicated to giv
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] Proper use of Markdown
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
+- [x] Description of how you will use each technology
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator Pitch
 
@@ -34,11 +34,19 @@ This is a website made for fun and experience but still trying to bring attentio
 
 
 <br/>
+
 ```mermaid
 sequenceDiagram
     actor You
     actor Website
-    You->>Website: Replace this with your design
+    actor API
+    actor Friend
+    You->>Website: Enter cat and characteristics
+    Website->>API: Request names of cancer
+    API-->>Website: Differnt names of cancers
+    Website-->>You: "Diagnosis" of patient
+    You->>Website: Request to share "diagnosis"
+    Website-->>Friend: Generated link
 ```
 
 ### Key features
@@ -55,7 +63,7 @@ sequenceDiagram
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Create 3 screens: one before logging in, one for logging in, and one for after logging in
+- **HTML** - Create 4 screens: one before logging in, one for logging in, one for after logging in, and one to eneter cat's information
 - **CSS** - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast
 - **React** - Provides login, choice display, applying votes, display other users votes, and use of React for routing and components
 - **Service** - functions for things such as:
