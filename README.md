@@ -23,12 +23,17 @@ This is a website made for fun and experience but still trying to bring attentio
 
 ### Design
 
-![Design image](placeholder.png)
+> This is a sketch of what it will look like before logging in or entering information
 
-![Design image](Before&nbsp;Log&nbsp;In.jpg)
+![Design image](BeforeLogIn.jpg)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<br/><br/>
+> This is a sketch of it after logging in
+  
+![Design image](AfterLogIn.jpg)
 
+
+<br/>
 ```mermaid
 sequenceDiagram
     actor You
@@ -39,19 +44,30 @@ sequenceDiagram
 ### Key features
 
 - Sign in to save cat information and fake diagnosis
-- Describe your key feature
-- Describe your key feature
+- Save name of cat, discription of symtoms, and characteristics (age, color, etc)
+- Generate diagnosis from symtoms
+- Get names of diagnosis from database through API
+- Ability to change cat's information and get new "diagnosis"
+- Allows to share diagnosis with others
+- Diagnosis will have warning that it isn't an actuall diagnosis and is purely for fun
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Create 3 screens: one before logging in, one for logging in, and one for after logging in
+- **CSS** - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast
+- **React** - Provides login, choice display, applying votes, display other users votes, and use of React for routing and components
+- **Service** - functions for things such as:
+    - generate diagnosis
+    - collect names of cancers
+    - decided if it is cancer or not
+    - login and register account
+    - retrieve saved cat information
+    - enter new cat information
+- **DB/Login** - Store cat characteristics and diagnosis in database. Register and login users.
+- **WebSocket** - When a diagnosis is shared, the information is generated from the server
+
 
 ## 🚀 AWS deliverable
 
