@@ -87,15 +87,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [x] **HTML pages**
-- [x] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [x] **Links**
-- [x] **Text**
-- [x] **3rd party API placeholder**
+- [x] **HTML pages** - 5 pages made
+- [x] **Proper HTML element usage** - Adjustments may be needed but there is a large amount of html elements used
+- [x] **Links** - links to other html and github
+- [x] **Text** - about.html has information in form of text
+- [x] **3rd party API placeholder** - this is the diagnosis at the results.html
 - [ ] **Images** - There are no images that fit with this project well
-- [x] **Login placeholder**
-- [x] **DB data placeholder**
-- [x] **WebSocket placeholder**
+- [x] **Login placeholder** - there is a space to enter password and email
+- [x] **DB data placeholder** - there is a table that is somewhat poorly created but it is just a placeholder for the data base
+- [x] **WebSocket placeholder** - there is a button to share the results in results.html that is not properly set up
 
 ## 🚀 CSS deliverable
 
