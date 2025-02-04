@@ -1,51 +1,82 @@
 <html>
     <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Front Page</title>
-    </head>
-    <body>
-        <h1>What is wrong with your cat? Is it a UI or canser?</h1>
-            <nav>
-                <menu>
-                    <h3>Placeholder to access each html</h3>
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>
-                        <a href="enter_info.html">Input Information</a>
-                    </li>
-                    <li>
-                        <a href="results.html">Results</a>
-                    </li>
-                    <li>
-                        <a href="about.html">About Site</a>
-                    </li>
-                    <li>
-                        <a href="home.html">After Login</a>
-                    </li>
-                </menu>
-            </nav>
-            <hr>
-        <main>
-            <h1>Saved Cats<span><button style="margin-left:75%">profile</button></span></h1>
-            <section>
-                <p>
-                    <h2>Placeholder for DataBase</h2>
-                    <table style="margin-left:1%">
-                        <tr>
-                            <td>cat name - diagnosis</td>
-                        </tr>
-                        <tr>
-                            <td>cat name - diagnosis</td>
-                        </tr>
-                    </table>
-                </p>
-            </section>
-            <button style="margin-left:4%">add new cat</button>
-        </main>
-        <hr>
-        <footer>
-            <a href="https://github.com/seanathn/CS260Project">Github</a>
-            <a>by Sean Brown</a>
-        </footer>
+        <!-- <link rel="icon" href="favicon.ico" /> -->
+    
+        <link rel="stylesheet" href="main.css" />
+        <!-- <link rel="stylesheet" href="about.css" /> -->
+    
+        <!-- Include bootstrap CSS framework -->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+          crossorigin="anonymous"
+        />
+      </head>
+      <body>
+        <header class="sticky-top">
+          <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html"><h1>Cancer or Urinary Infection</h1></a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="enter_info.html">Enter Cat</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="results.html">Results</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="about.html">About</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </header>
+
+        <div class="container-fluid">
+            <div class="demo-box">
+                <nav>
+                    <h3>Saved Cats<span style="margin-left: 80%;"><button class="btn btn-outline-dark">Sign Out</button></span></h3>
+                </nav>
+                    <section>
+                        <p>
+                            <h5>Placeholder for DataBase</h2>
+                            <table class="table">
+                                <thread>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Diagnosis</th>
+                                    </tr>
+                                </thread>
+                                <tbody>
+                                    <tr>
+                                        <td>cat name</td>
+                                        <td>cancer</td>
+                                    </tr>
+                                    <tr>
+                                        <td>cat name</td>
+                                        <td>cancer</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </p>
+                    </section>
+                    <button class="btn btn-outline-dark">add new cat</button>
+                </div>
+            </div>
+        </div>
     </body>
+    <footer class="sticky-bottom">
+        <nav class="navbar bg-light">
+          <div class="container-fluid ">
+           <p class="text-muted">Sean Brown - <a class="text-muted" style="padding-left: 0.25rem;" href="https://github.com/seanathn/CS260Project">Git</a></p>
+          </div>
+      </footer>
 </html>
