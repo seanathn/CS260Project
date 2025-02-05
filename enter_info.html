@@ -6,7 +6,7 @@
         <!-- <link rel="icon" href="favicon.ico" /> -->
     
         <link rel="stylesheet" href="main.css" />
-        <!-- <link rel="stylesheet" href="about.css" /> -->
+        <link rel="stylesheet" href="enter_info.css" />
     
         <!-- Include bootstrap CSS framework -->
         <link
@@ -16,6 +16,7 @@
           crossorigin="anonymous"
         />
       </head>
+
       <body>
         <header class="sticky-top">
           <nav class="navbar navbar-expand-lg bg-light">
@@ -39,26 +40,29 @@
             </div>
           </nav>
         </header>
-
-        <main>
+        
+            <main>
             <form>
-                <div>
-                    <a>Cat name:</a>
-                    <input type="text" required="true">
-                </div>
-                <div>
-                    <a>Symtoms:</a>
-                    <a>pain</a><input type="checkbox">
-                    <a>throwing up</a><input type="checkbox">
-                    <a>yapping</a><input type="checkbox">
-                </div>
-                <div>
-                    <a>Age:</a>
-                    <input type="text">
-                </div>
+                <div class='demo-box' style="margin:10rem; padding:5rem;">
+                    <div>
+                        <t class="text-field">Cat name:</t>
+                        <input type="text" required="true">
+                    </div>
+                    <div>
+                        <t class="text-field">Symtoms:</t>
+                        <a style="margin-right:0.5rem;">pain</a><input type="checkbox">
+                        <a style="margin-left:0.2rem; margin-right:0.5rem;">throwing up</a><input type="checkbox">
+                        <a style="margin-left:0.2rem; margin-right:0.5rem;">yapping</a><input type="checkbox">
+                    </div>
+                    <div>
+                        <t class="text-field" style="margin-right:3.5rem;">Age:</t>
+                        <input type="text">
+                    </div>
+                </div>  
+                <button class="btn btn-primary" style="margin-left:90%;">Done</button>
             </form>
         </main>
-        <hr>
+
         <footer class="sticky-bottom">
         <nav class="navbar bg-light">
           <div class="container-fluid ">
