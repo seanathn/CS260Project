@@ -92,7 +92,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Links** - links to other html and github
 - [x] **Text** - about.html has information in form of text
 - [x] **3rd party API placeholder** - this is the diagnosis at the results.html
-- [ ] **Images** - There are no images that fit with this project well
+- [x] **Images**
 - [x] **Login placeholder** - there is a space to enter password and email
 - [x] **DB data placeholder** - there is a table that is somewhat poorly created but it is just a placeholder for the data base
 - [x] **WebSocket placeholder** - there is a button to share the results in results.html that is not properly set up
@@ -101,12 +101,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Header, footer, and main content body** - I did not complete this part of the deliverable.
-- [ ] **Navigation elements** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing** - I did not complete this part of the deliverable.
-- [ ] **Application elements** - I did not complete this part of the deliverable.
-- [ ] **Application text content** - I did not complete this part of the deliverable.
-- [ ] **Application images** - I did not complete this part of the deliverable.
+- [x] **Header, footer, and main content body** - They exist idk what else to put
+- [x] **Navigation elements** - You can access every page, due to there being two homes one is the home button and the other is the name at the top.
+- [x] **Responsive to window resizing** - One page doesn't reformat the best but they still work
+- [x] **Application elements** - Using a few classes made in css.
+- [x] **Application text content** 
+- [x] **Application images** - There is an image in the about section
 
 ## 🚀 React part 1: Routing deliverable
 
