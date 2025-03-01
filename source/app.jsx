@@ -10,23 +10,27 @@ import { Results } from './results/results'
 import { Home } from './home/home';
 
 export default function App() {
+
+  const [user, setUser] = React.useState(localStorage.getItem('user') || null)
+
     return (
       <BrowserRouter>
        <div className='body'>
         <header className="sticky-top">
           <nav className="navbar navbar-expand-lg bg-light">
             <div className="container-fluid">
-                <NavLink className="navbar-brand" to="/"><h1>Cancer or Urinary Infection</h1></NavLink>
+                <div className="navbar-brand"><h1>Cancer or Urinary Infection</h1></div>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="home">Home</NavLink>
+                  {user && <NavLink className="nav-link" to="home">Home</NavLink> }
+                  {!user && <NavLink className="nav-link" to="/">Home</NavLink> }
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="enter_info">Enter Cat</NavLink>
+                  {user && <NavLink className="nav-link" to="enter_info">Enter Cat</NavLink>}
                 </li>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="results">Results</NavLink>
+                  {user && <NavLink className="nav-link" to="results">Results</NavLink>}
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="about">About</NavLink>

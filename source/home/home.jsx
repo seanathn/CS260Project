@@ -1,38 +1,51 @@
 import React from "react";
-import './home.css'
+import './home.css';
+import {useNavigate} from "react-router-dom";
 
 export function Home() {
+
+    const navigate = useNavigate();
+    // React.useEffect();
+
+    function LogOut() {
+        localStorage.removeItem('user')
+        navigate('/')
+    }
+
+    function catAddition() {
+        navigate('/enter_info')
+    }
+
+
     return (
         <div className="container-fluid">
             <div className="demo-box">
-                <nav>
-                    <h3>Saved Cats<span className="margin-left-80"><button className="btn btn-outline-dark">Sign Out</button></span></h3>
-                </nav>
-                    <section>
-                        <p>
-                            <h5>Placeholder for DataBase</h5>
-                            <table className="table">
-                                <thread>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Diagnosis</th>
-                                    </tr>
-                                </thread>
-                                <tbody>
-                                    <tr>
-                                        <td>cat name</td>
-                                        <td>cancer</td>
-                                    </tr>
-                                    <tr>
-                                        <td>cat name</td>
-                                        <td>cancer</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </p>
-                    </section>
-                    <button className="btn btn-outline-dark">add new cat</button>
-                </div>
+                <h3>Saved Cats<span className="margin-left-80"><button className="btn btn-outline-dark" onClick={LogOut}>Sign Out</button></span></h3>
+                <section>
+                    <div>
+                        <h5>Placeholder for DataBase</h5>
+                        <table className="table">
+                            <thread>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Diagnosis</th>
+                                </tr>
+                            </thread>
+                            <tbody>
+                                <tr>
+                                    <td>cat name</td>
+                                    <td>cancer</td>
+                                </tr>
+                                <tr>
+                                    <td>cat name</td>
+                                    <td>cancer</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <button className="btn btn-outline-dark" onClick={catAddition}>add new cat</button>
             </div>
+        </div>
     );
 }
