@@ -112,16 +112,16 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - Routing between login and voting components.
+- [x] **Bundled using Vite**
+- [x] **Components** - Some of the html got screwed up because of the way that I made it previously but for this assignement it should be fine for now.
+- [x] **Router** - Routing between login and voting components.
 
 ## 🚀 React part 2: Reactivity
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - may want to change how it allows for multiple cats of the same name. This isn't necessarily needed depending on how I use the database, how I incode the data.
+- [x] **Hooks** - used in home.jsx to show the table of cats.
 
 ## 🚀 Service deliverable
 
