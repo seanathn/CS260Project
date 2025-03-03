@@ -13,14 +13,14 @@ export function Home() {
         if (catNames) {
             setCats(JSON.parse(catNames));
         }
-    }, []);
+    },[]);
 
     const catsRow = [];
     if (cats.length) {
         for (const [i, cat] of cats.entries()) {
             const cancerOrUI = JSON.parse(localStorage[cat] || null)[4];
             catsRow.push(
-                <tr key={i} onClick={catAddition}>
+                <tr key={i} onClick={() => {removeCat(cat)}}>
                     <td>{cat}</td>
                     <td>{cancerOrUI}</td>
                 </tr>
@@ -43,6 +43,13 @@ export function Home() {
         navigate('/enter_info')
     }
 
+    function removeCat(name) {
+        localStorage.removeItem(name);
+        cats.pop(name);
+        localStorage.setItem('cats', JSON.stringify(cats));
+        location.reload();
+    }
+
 
     return (
         <div className="container-fluid">
@@ -63,7 +70,7 @@ export function Home() {
                             </tbody>
                         </table>
                     </div>
-                    <div>Click on row to change information</div>
+                    <div>Click on row to delete</div>
                 </section>
                 <button className="btn btn-outline-dark" onClick={catAddition}>add new cat</button>
             </div>

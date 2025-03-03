@@ -14,13 +14,17 @@ export function EnterInfo() {
     let throwing = false;
     let pain = false;
     let cancerType = 'placeholder';
+    // let removable = false;
 
-    if (cats) {
-
-        React.useEffect(() =>{
-            console.log(cats);
-        }, []);
-    }
+    // if (cats) {
+    //     React.useEffect(() =>{
+    //         if (localStorage.getItem('changeCat?')) {
+    //             const currentCat = localStorage.getItem('changeCat?');
+    //             removable = true;
+    //             localStorage.removeItem('changeCat?');
+    //         }
+    //     }, []);
+    // }
 
     const navigate = useNavigate();
     
@@ -52,14 +56,14 @@ export function EnterInfo() {
 
     function getDiagnosis() {
 
-        if (Math.random() > 0.2) {
+        catArray=[pain, throwing, yapping, age, cancerType];
+
+        if (Math.random() > 0.3) {
             // new Promise(); // api call to get name of cancer
         }
         else {
-            catArray[5] = "UI";
+            catArray[4] = "UI";
         }
-        
-        catArray=[pain, throwing, yapping, age, cancerType];
 
         localStorage.setItem(name, JSON.stringify(catArray));
         
@@ -74,6 +78,10 @@ export function EnterInfo() {
 
         navigate('/home');
     }
+
+    // function removeCat() {
+
+    // }
 
 
     return (
