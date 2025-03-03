@@ -120,8 +120,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - may want to change how it allows for multiple cats of the same name. This isn't necessarily needed depending on how I use the database, how I incode the data.
+- [x] **Hooks** - used in home.jsx to show the table of cats.
 
 ## 🚀 Service deliverable
 
