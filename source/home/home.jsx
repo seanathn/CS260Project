@@ -25,15 +25,15 @@ export function Home() {
                     <div>
                         <h5>Placeholder for DataBase</h5>
                         <table className="table">
-                            <thread>
+                            <thead>
                                 <tr>
                                     <th>Name</th>
                                     <th>Diagnosis</th>
                                 </tr>
-                            </thread>
+                            </thead>
                             <tbody>
-                                <tr>
-                                    <td>cat name</td>
+                                <tr onClick={catAddition}>
+                                    <td>s</td>
                                     <td>cancer</td>
                                 </tr>
                                 <tr>
@@ -43,6 +43,7 @@ export function Home() {
                             </tbody>
                         </table>
                     </div>
+                    <div>Click on row to change information</div>
                 </section>
                 <button className="btn btn-outline-dark" onClick={catAddition}>add new cat</button>
             </div>

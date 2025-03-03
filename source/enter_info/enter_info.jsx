@@ -4,17 +4,26 @@ import {useNavigate} from "react-router-dom";
 
 export function EnterInfo() {
     const [cats, setCats] = React.useState(localStorage.getItem('cats') || null);
-
-    const navigate = useNavigate();
-
-    let catArray = ['', false, false, false, '', ''];
+    
+    let catArray;
+    let catsArr = JSON.parse(localStorage["cats"] || null);
+    // console.log(catsArr)
     let name = '';
-    let age;
+    let age = '';
     let yapping= false;
     let throwing = false;
     let pain = false;
     let cancerType = 'placeholder';
-    const [catInfo, setCatInfo] = React.useState('');
+
+    if (cats) {
+        // catsArr = JSON.parse(cats);
+
+        React.useEffect(() =>{
+            console.log(cats);
+        }, []);
+    }
+
+    const navigate = useNavigate();
     
 
     function setCatName(e) {
@@ -43,53 +52,53 @@ export function EnterInfo() {
     }
 
     function getDiagnosis() {
-        navigate('/home');
-        
-        catArray=[name, pain, throwing, yapping, age, cancerType];
 
-        console.log(catArray);
-
-        setCatInfo(JSON.stringify(catArray));
-
-        console.log(catInfo);
-
-        if (localStorage.getItem('cats')) {
-            setCats(localStorage.getItem('cats').push(catInfo));
-        }
-
-        if (Math.random() > 0.1) {
-            new Promise(); // api call to get name of cancer
+        if (Math.random() > 0.2) {
+            // new Promise(); // api call to get name of cancer
         }
         else {
-            catArray[5] = "UI"
+            catArray[5] = "UI";
         }
         
+        catArray=[pain, throwing, yapping, age, cancerType];
+
+        localStorage.setItem(name, JSON.stringify(catArray));
         
+        if (cats) {
+            catsArr.push(name);
+            setCats(catsArr);
+            localStorage.setItem('cats', JSON.stringify(catsArr));
+        } else {
+            setCats(JSON.stringify([name]));
+            localStorage.setItem('cats', JSON.stringify([name]));
+        }
+
+        navigate('/home');
     }
 
 
     return (
         <main>
-            <form>
+            {/* <form> */}
                 <div className='demo-box'>
                     <div>
                         
                         <span className="text-field">Cat name:</span>
-                        <input type="text" onChange={setCatName}/>
+                        <input type="text" onChange={setCatName} placeholder={age}/>
                     </div>
                     <div>
                         <span className="text-field">Symtoms:</span>
-                        <span className="first-check">pain</span><input type="checkbox" onClick={setCatPain}/>
-                        <span className="onwards-check">throwing up</span><input type="checkbox" onClick={setCatThrowingUp}/>
-                        <span className="onwards-check">yapping</span><input type="checkbox" onClick={setCatYapping}/>
+                        <span className="first-check">pain</span><input type="checkbox" onClick={setCatPain} defaultChecked={pain}/> 
+                        <span className="onwards-check">throwing up</span><input type="checkbox" onClick={setCatThrowingUp} defaultChecked={throwing}/>
+                        <span className="onwards-check">yapping</span><input type="checkbox" onClick={setCatYapping} defaultChecked={yapping}/>
                     </div>
                     <div>
                         <span className="final-text">Age:</span>
-                        <input type="text" onChange={setCatAge}/>
+                        <input type="text" onChange={setCatAge} placeholder={age}/>
                     </div>
                     <button className="btn btn-primary" onClick={getDiagnosis}>Done</button>
                 </div>  
-            </form>
+            {/* </form> */}
         </main>
     );
 }
