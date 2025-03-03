@@ -1,6 +1,6 @@
 import React from "react";
 import './login.css';
-import {useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export function Login() {
     const [text, setText] = React.useState('');

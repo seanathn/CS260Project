@@ -5,7 +5,34 @@ import {useNavigate} from "react-router-dom";
 export function Home() {
 
     const navigate = useNavigate();
-    // React.useEffect();
+
+    const [cats, setCats] = React.useState([]);
+
+    React.useEffect(() => {
+        const catNames = localStorage.getItem('cats');
+        if (catNames) {
+            setCats(JSON.parse(catNames));
+        }
+    }, []);
+
+    const catsRow = [];
+    if (cats.length) {
+        for (const [i, cat] of cats.entries()) {
+            const cancerOrUI = JSON.parse(localStorage[cat] || null)[4];
+            catsRow.push(
+                <tr key={i} onClick={catAddition}>
+                    <td>{cat}</td>
+                    <td>{cancerOrUI}</td>
+                </tr>
+            )
+        }
+    } else {
+        catsRow.push(
+          <tr key={0}>
+            <td colSpan='4'>Enter a cat to populate</td>
+          </tr>
+        );
+      }
 
     function LogOut() {
         localStorage.removeItem('user')
@@ -32,14 +59,7 @@ export function Home() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr onClick={catAddition}>
-                                    <td>s</td>
-                                    <td>cancer</td>
-                                </tr>
-                                <tr>
-                                    <td>cat name</td>
-                                    <td>cancer</td>
-                                </tr>
+                                {catsRow}
                             </tbody>
                         </table>
                     </div>

@@ -16,7 +16,6 @@ export function EnterInfo() {
     let cancerType = 'placeholder';
 
     if (cats) {
-        // catsArr = JSON.parse(cats);
 
         React.useEffect(() =>{
             console.log(cats);
