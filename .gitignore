@@ -3,3 +3,4 @@
 node_modules/
 deployReact.sh
 seanathn-cs260-webthingy.pem
+deployService.sh
