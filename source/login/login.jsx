@@ -1,49 +1,27 @@
-import React from "react";
-import './login.css';
-import {useNavigate} from "react-router-dom";
+import React from 'react';
 
-export function Login() {
-    const [text, setText] = React.useState('');
-    const navigate = useNavigate();
+import { Unauthenticated } from './unauthenticated';
+import { Authenticated } from './authenticated';
+import { Home } from '../home/home';
+import { AuthState } from './authState';
 
-    function loginUser() {
-        // console.log('login' + text)
-        if (text) {
-            localStorage.setItem('user', text);
-            navigate('/home');
-        }
-    }
-
-    function textChange(e) {
-        setText(e.target.value)
-    }
-
-    return (
-        <main className="container-fluid">
-            <div className="demo-box">
-                <h1 className="signIn">Sign in/Create Account</h1>
-                <form id="login">
-                    <div className="margin5rem">
-                        <div className="margin1rem;">
-                            <span className="emailBox">email:</span>
-                            <input placeholder="your@email.com" type="email" onChange={textChange}/>
-                        </div>
-                        <div className="margin1rem">
-                            <span>password:</span>
-                            <input type="password" placeholder="password" />
-                        </div>
-                    </div>
-                    <div>
-                        <div className="margin1rem">
-                            <button onClick={loginUser} className="btn btn-primary" >Login</button>
-                            <button className="btn btn-secondary" type="submit">Create</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </main>
-    );
+export function Login({ userName, authState, onAuthChange }) {
+  return (
+    <main className='container-fluid text-center'>
+      <div>
+        {authState !== AuthState.Unknown && <h1>Welcome to Cancer or UI</h1>}
+        {authState === AuthState.Authenticated && (
+          <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />
+        )}
+        {authState === AuthState.Unauthenticated && (
+          <Unauthenticated
+            userName={userName}
+            onLogin={(loginUserName) => {
+              onAuthChange(loginUserName, AuthState.Authenticated);
+            }}
+          />
+        )}
+      </div>
+    </main>
+  );
 }
-
-
-

@@ -8,10 +8,13 @@ import { About } from './about/about';
 import { EnterInfo } from './enter_info/enter_info';
 import { Results } from './results/results'
 import { Home } from './home/home';
+import { AuthState } from './login/authState';
 
 export default function App() {
 
-  const [user, setUser] = React.useState(localStorage.getItem('user') || null)
+  const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+  const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+  const [authState, setAuthState] = React.useState(currentAuthState);
 
     return (
       <BrowserRouter>
@@ -23,14 +26,14 @@ export default function App() {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  {user && <NavLink className="nav-link" to="home">Home</NavLink> }
-                  {!user && <NavLink className="nav-link" to="/">Home</NavLink> }
+                  {userName && <NavLink className="nav-link" to="home">Home</NavLink> }
+                  {!userName && <NavLink className="nav-link" to="/">Home</NavLink> }
                 </li>
                 <li className="nav-item">
-                  {user && <NavLink className="nav-link" to="enter_info">Enter Cat</NavLink>}
+                  {userName && <NavLink className="nav-link" to="enter_info">Enter Cat</NavLink>}
                 </li>
                 <li className="nav-item">
-                  {user && <NavLink className="nav-link" to="results">Results</NavLink>}
+                  {userName && <NavLink className="nav-link" to="results">Results</NavLink>}
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="about">About</NavLink>
@@ -42,7 +45,14 @@ export default function App() {
         </header>
 
         <Routes>
-          <Route path='/' element={<Login/>} exact />
+          <Route path='/' element={<Login
+                userName={userName}
+                authState={authState}
+                onAuthChange={(userName, authState) => {
+                  setAuthState(authState);
+                  setUserName(userName);
+                }}
+              />} exact />
           <Route path='/home' element={<Home/>} exact />
           <Route path='/results' element={<Results/>} exact />
           <Route path='/enter_info' element={<EnterInfo/>} exact />

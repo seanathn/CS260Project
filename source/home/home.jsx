@@ -9,10 +9,16 @@ export function Home() {
     const [cats, setCats] = React.useState([]);
 
     React.useEffect(() => {
-        const catNames = localStorage.getItem('cats');
-        if (catNames) {
-            setCats(JSON.parse(catNames));
-        }
+        // const catNames = localStorage.getItem('cats');
+        // if (catNames) {
+        //     setCats(JSON.parse(catNames));
+        // }
+        fetch('/api/cats')
+        .then((response) => response.json())
+        .then((cats) => {
+            console.log(cats)
+            // setCats(cats);
+        });
     },[]);
 
     const catsRow = [];
@@ -36,6 +42,16 @@ export function Home() {
 
     function LogOut() {
         localStorage.removeItem('user')
+        fetch(`/api/auth/logout`, {
+            method: 'delete',
+          })
+            .catch(() => {
+              // Logout failed. Assuming offline
+            })
+            .finally(() => {
+              localStorage.removeItem('userName');
+              () => onAuthChange(userName, AuthState.Unauthenticated).onLogout();
+            });
         navigate('/')
     }
 

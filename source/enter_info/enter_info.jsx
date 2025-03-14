@@ -54,7 +54,7 @@ export function EnterInfo() {
         console.log(age);
     }
 
-    function getDiagnosis() {
+    async function getDiagnosis() {
 
         catArray=[pain, throwing, yapping, age, cancerType];
 
@@ -65,16 +65,23 @@ export function EnterInfo() {
             catArray[4] = "UI";
         }
 
-        localStorage.setItem(name, JSON.stringify(catArray));
+        // localStorage.setItem(name, JSON.stringify(catArray));
         
-        if (cats) {
-            catsArr.push(name);
-            setCats(catsArr);
-            localStorage.setItem('cats', JSON.stringify(catsArr));
-        } else {
-            setCats(JSON.stringify([name]));
-            localStorage.setItem('cats', JSON.stringify([name]));
-        }
+        // if (cats) {
+        //     catsArr.push(name);
+        //     setCats(catsArr);
+        //     localStorage.setItem('cats', JSON.stringify(catsArr));
+        // } else {
+        //     setCats(JSON.stringify([name]));
+        //     localStorage.setItem('cats', JSON.stringify([name]));
+        // }
+        const newCat = {name: name, symtoms: [pain, throwing, yapping], age: age, diagnosis:cancerType};
+        console.log(newCat);
+        await fetch('/api/cats', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify(newCat),
+        });
 
         navigate('/home');
     }

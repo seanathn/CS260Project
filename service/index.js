@@ -6,9 +6,10 @@ const app = express();
 
 const authCookieName = 'token';
 
-// The scores and users are saved in memory and disappear whenever the service is restarted.
 let users = [];
-let scores = [];
+let cats = new Map();
+
+
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -23,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 // Router for service endpoints
-var apiRouter = express.Router();
+let apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 // CreateAuth a new user
@@ -72,15 +73,14 @@ const verifyAuth = async (req, res, next) => {
   }
 };
 
-// GetScores
-apiRouter.get('/scores', verifyAuth, (_req, res) => {
-  res.send(scores);
+// GetCat
+apiRouter.get('/cats', verifyAuth, (_req, res) => {  res.send(cats);
 });
 
-// SubmitScore
-apiRouter.post('/score', verifyAuth, (req, res) => {
-  scores = updateScores(req.body);
-  res.send(scores);
+// SubmitCat
+apiRouter.post('/cats', verifyAuth, (req, res) => {
+  cats = updateCats(req.body);
+  res.send(cats);
 });
 
 // Default error handler
@@ -94,25 +94,27 @@ app.use((_req, res) => {
 });
 
 // updateScores considers a new score for inclusion in the high scores.
-function updateScores(newScore) {
+function updateCats(newCat) {
   let found = false;
-  for (const [i, prevScore] of scores.entries()) {
-    if (newScore.score > prevScore.score) {
-      scores.splice(i, 0, newScore);
-      found = true;
-      break;
-    }
+
+  // will not replace cats with the same name
+  if (newCat[0] in cats) {
+    found = true;
   }
+
+//   for (const [i, prevScore] of cats.entries()) {
+//     if (newScore.score > prevScore.score) {
+//       scores.splice(i, 0, newScore);
+//       found = true;
+//       break;
+//     }
+//   }
 
   if (!found) {
-    scores.push(newScore);
+    cats.set(newCat[0], newCat.splice(1, newCat.length()-1))
   }
 
-  if (scores.length > 10) {
-    scores.length = 10;
-  }
-
-  return scores;
+  return cats;
 }
 
 async function createUser(email, password) {

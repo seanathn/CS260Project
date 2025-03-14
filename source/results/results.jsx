@@ -4,6 +4,7 @@ import './results.css'
 export function Results() {
 
     function shareResults() {
+        // fetch(clinicaltrialsapi.cancer.gov/api/v2/diseases?type=maintype&type_not=grade&include=name)
         // nothing for now
     }
 
