@@ -79,12 +79,16 @@ apiRouter.get('/cats', verifyAuth, (_req, res) => {  res.send(cats);
 
 // SubmitCat
 apiRouter.post('/cats', verifyAuth, (req, res) => {
+    // console.log('made to post')
+    // console.log(cats);
+    // console.log(req.body);
   cats = updateCats(req.body);
   res.send(cats);
 });
 
 // Default error handler
 app.use(function (err, req, res, next) {
+    // console.log('fail')
   res.status(500).send({ type: err.name, message: err.message });
 });
 
@@ -95,11 +99,18 @@ app.use((_req, res) => {
 
 // updateScores considers a new score for inclusion in the high scores.
 function updateCats(newCat) {
+    console.log(newCat.name);
+    console.log(newCat.symtoms);
+    console.log(newCat.age);
+    console.log(newCat.diagnosis);
   let found = false;
 
   // will not replace cats with the same name
-  if (newCat[0] in cats) {
+  if (newCat.name in cats) {
+    console.log("found");
     found = true;
+  } else {
+    console.log("should add");
   }
 
 //   for (const [i, prevScore] of cats.entries()) {
@@ -111,8 +122,12 @@ function updateCats(newCat) {
 //   }
 
   if (!found) {
-    cats.set(newCat[0], newCat.splice(1, newCat.length()-1))
+    // console.log("adding");
+    const catArray = newCat.symtoms.concat([newCat.age, newCat.diagnosis]);
+    console.log(catArray);
+    cats.set(newCat.name, catArray);
   }
+  console.log(cats);
 
   return cats;
 }

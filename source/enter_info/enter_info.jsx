@@ -54,7 +54,7 @@ export function EnterInfo() {
         console.log(age);
     }
 
-    async function getDiagnosis() {
+    function getDiagnosis() {
 
         catArray=[pain, throwing, yapping, age, cancerType];
 
@@ -75,13 +75,19 @@ export function EnterInfo() {
         //     setCats(JSON.stringify([name]));
         //     localStorage.setItem('cats', JSON.stringify([name]));
         // }
+
         const newCat = {name: name, symtoms: [pain, throwing, yapping], age: age, diagnosis:cancerType};
         console.log(newCat);
-        await fetch('/api/cats', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json'},
-            body: JSON.stringify(newCat),
-        });
+
+        (async () => {
+            const rawResponse = await fetch('/api/cats', {
+                method: 'POST',
+                headers: { 'content-type': 'application/json'},
+                body: JSON.stringify(newCat),
+            });
+            const content = await rawResponse.json();
+            // console.log(content);
+        })();
 
         navigate('/home');
     }

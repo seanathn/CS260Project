@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import { MessageDialog } from './messageDialog';
+import { useNavigate } from 'react-router-dom';
 
 export function Unauthenticated(props) {
   const [userName, setUserName] = React.useState(props.userName);
@@ -10,10 +11,12 @@ export function Unauthenticated(props) {
 
   async function loginUser() {
     loginOrCreate(`/api/auth/login`);
+    // navigate('/home');
   }
 
   async function createUser() {
     loginOrCreate(`/api/auth/create`);
+    // navigate('/home');
   }
 
   async function loginOrCreate(endpoint) {

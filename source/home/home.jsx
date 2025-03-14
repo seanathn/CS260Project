@@ -6,7 +6,7 @@ export function Home() {
 
     const navigate = useNavigate();
 
-    const [cats, setCats] = React.useState([]);
+    const [cats, setCats] = React.useState(new Map());
 
     React.useEffect(() => {
         // const catNames = localStorage.getItem('cats');
@@ -16,8 +16,8 @@ export function Home() {
         fetch('/api/cats')
         .then((response) => response.json())
         .then((cats) => {
-            console.log(cats)
-            // setCats(cats);
+            setCats(cats);
+            console.log(cats);
         });
     },[]);
 
@@ -41,7 +41,7 @@ export function Home() {
       }
 
     function LogOut() {
-        localStorage.removeItem('user')
+        // localStorage.removeItem('user');
         fetch(`/api/auth/logout`, {
             method: 'delete',
           })
@@ -52,17 +52,18 @@ export function Home() {
               localStorage.removeItem('userName');
               () => onAuthChange(userName, AuthState.Unauthenticated).onLogout();
             });
-        navigate('/')
+        navigate('/');
     }
 
     function catAddition() {
-        navigate('/enter_info')
+        navigate('/enter_info');
     }
 
     function removeCat(name) {
-        localStorage.removeItem(name);
-        cats.pop(name);
-        localStorage.setItem('cats', JSON.stringify(cats));
+        // localStorage.removeItem(name);
+        // cats.pop(name);
+        // localStorage.setItem('cats', JSON.stringify(cats));
+
         location.reload();
     }
 

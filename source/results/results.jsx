@@ -4,7 +4,7 @@ import './results.css'
 export function Results() {
 
     function shareResults() {
-        // fetch(clinicaltrialsapi.cancer.gov/api/v2/diseases?type=maintype&type_not=grade&include=name)
+        fetch('https://clinicaltrialsapi.cancer.gov/api/v2/diseases?type=maintype&type_not=grade&include=name')
         // nothing for now
     }
 
@@ -15,7 +15,7 @@ export function Results() {
                     <h2 className="headings">Placeholder for API (Diagnosis)</h2>
                 </section>
                 <form>
-                    <button class="btn btn-outline-dark" onClick={shareResults}>Share Results</button>
+                    <button className="btn btn-outline-dark" onClick={shareResults}>Share Results</button>
                     <h2 className="headings">Placeholder for WebSocket</h2>
                 </form>
             </div>
