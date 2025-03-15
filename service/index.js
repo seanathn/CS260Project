@@ -7,7 +7,7 @@ const app = express();
 const authCookieName = 'token';
 
 let users = [];
-let cats = new Map();
+let cats = [];
 
 
 
@@ -83,7 +83,28 @@ apiRouter.post('/cats', verifyAuth, (req, res) => {
     // console.log(cats);
     // console.log(req.body);
   cats = updateCats(req.body);
+  console.log(cats);
+
   res.send(cats);
+});
+
+// delete cat
+apiRouter.delete('/cats', async (req, res) => {
+  // const user = await findUser('token', req.cookies[authCookieName]);
+  // if (user) {
+  //   delete user.token;
+  // }
+  // res.clearCookie(authCookieName);
+  // cats.pop(req.body);
+  console.log(req.body);
+  // const cat = req.body;
+  // console.log(cat.name);
+  // console.log(cat.symtoms);
+  const passedCat = [req.body.name, req.body.symtoms[0], req.body.symtoms[1], req.body.symtoms[2], req.body.age, req.body.diagnosis];
+  console.log(passedCat);
+  cats.pop(passedCat);
+  console.log(passedCat);
+  res.status(204).end();
 });
 
 // Default error handler
@@ -97,36 +118,34 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
-// updateScores considers a new score for inclusion in the high scores.
 function updateCats(newCat) {
-    console.log(newCat.name);
-    console.log(newCat.symtoms);
-    console.log(newCat.age);
-    console.log(newCat.diagnosis);
-  let found = false;
+  // let found = false;
+  
+  const catArray = [newCat.name, newCat.symtoms[0], newCat.symtoms[1], newCat.symtoms[2], newCat.age, newCat.diagnosis];
+  console.log(catArray)
 
-  // will not replace cats with the same name
-  if (newCat.name in cats) {
-    console.log("found");
-    found = true;
-  } else {
-    console.log("should add");
-  }
+  // for (const [i,cat] of cats.entries()) {
+  //   console.log(cat);
+  //   if (cat == catArray) {
+  //     found = true;
+  //   }
+  // }
+  // if (catArray in cats.entries()) {
+  //   console.log("found");
+  //   found = true;
+  // } else {
+  //   console.log("should add");
+  // }
 
-//   for (const [i, prevScore] of cats.entries()) {
-//     if (newScore.score > prevScore.score) {
-//       scores.splice(i, 0, newScore);
-//       found = true;
-//       break;
-//     }
-//   }
-
-  if (!found) {
-    // console.log("adding");
-    const catArray = newCat.symtoms.concat([newCat.age, newCat.diagnosis]);
-    console.log(catArray);
-    cats.set(newCat.name, catArray);
-  }
+  // if (!found) {
+  //   // console.log("adding");
+  //   // const catArray = newCat.symtoms.concat([newCat.age, newCat.diagnosis]);
+  //   // console.log(catArray);
+  //   // cats.set(newCat.name, catArray);
+  //   // cats.push([newCat.name].concat(catArray));
+    
+  // }
+  cats.push(catArray);
   console.log(cats);
 
   return cats;

@@ -31,27 +31,37 @@ export function EnterInfo() {
 
     function setCatName(e) {
         name = e.target.value;
-        console.log(name);
+        // console.log(name);
     }
 
     function setCatPain() {
         pain = !pain;
-        console.log(pain);
+        // console.log(pain);
     }
 
     function setCatThrowingUp() {
         throwing = !throwing;
-        console.log(throwing);
+        // console.log(throwing);
     }
 
     function setCatYapping() {
         yapping = !yapping;
-        console.log(yapping);
+        // console.log(yapping);
     }
 
     function setCatAge(e) {
         age = e.target.value;
-        console.log(age);
+        // console.log(age);
+    }
+
+    async function saveCat() {
+        const newCat = {name: name, symtoms: [pain, throwing, yapping], age: age, diagnosis:cancerType};
+        
+        await fetch('/api/cats', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json'},
+            body: JSON.stringify(newCat),
+        });
     }
 
     function getDiagnosis() {
@@ -76,20 +86,13 @@ export function EnterInfo() {
         //     localStorage.setItem('cats', JSON.stringify([name]));
         // }
 
-        const newCat = {name: name, symtoms: [pain, throwing, yapping], age: age, diagnosis:cancerType};
-        console.log(newCat);
+        
+        // console.log(newCat);
+        saveCat();
 
-        (async () => {
-            const rawResponse = await fetch('/api/cats', {
-                method: 'POST',
-                headers: { 'content-type': 'application/json'},
-                body: JSON.stringify(newCat),
-            });
-            const content = await rawResponse.json();
-            // console.log(content);
-        })();
+        
 
-        navigate('/home');
+        navigate('/results');
     }
 
     // function removeCat() {

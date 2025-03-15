@@ -6,7 +6,7 @@ export function Home() {
 
     const navigate = useNavigate();
 
-    const [cats, setCats] = React.useState(new Map());
+    const [cats, setCats] = React.useState([]);
 
     React.useEffect(() => {
         // const catNames = localStorage.getItem('cats');
@@ -15,8 +15,9 @@ export function Home() {
         // }
         fetch('/api/cats')
         .then((response) => response.json())
-        .then((cats) => {
-            setCats(cats);
+        .then((allCats) => {
+            console.log(allCats);
+            setCats(allCats);
             console.log(cats);
         });
     },[]);
@@ -24,10 +25,10 @@ export function Home() {
     const catsRow = [];
     if (cats.length) {
         for (const [i, cat] of cats.entries()) {
-            const cancerOrUI = JSON.parse(localStorage[cat] || null)[4];
+            const cancerOrUI = cat[5];
             catsRow.push(
                 <tr key={i} onClick={() => {removeCat(cat)}}>
-                    <td>{cat}</td>
+                    <td>{cat[0]}</td>
                     <td>{cancerOrUI}</td>
                 </tr>
             )
@@ -53,6 +54,7 @@ export function Home() {
               () => onAuthChange(userName, AuthState.Unauthenticated).onLogout();
             });
         navigate('/');
+        location.reload();
     }
 
     function catAddition() {
@@ -63,6 +65,13 @@ export function Home() {
         // localStorage.removeItem(name);
         // cats.pop(name);
         // localStorage.setItem('cats', JSON.stringify(cats));
+        // {name: name, symtoms: [pain, throwing, yapping], age: age, diagnosis:cancerType};
+        const catInfo = {name: name[0], symtoms: [name[1], name[2], name[3]], age: name[4], diagnosis: name[5]};
+        fetch(`/api/cats`, {
+            method: 'DELETE',
+            body: JSON.stringify(catInfo),
+            headers:  { 'content-type': 'application/json'},
+        })
 
         location.reload();
     }
