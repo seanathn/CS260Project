@@ -1,6 +1,7 @@
 import React from "react";
 import "./enter_info.css"
 import {useNavigate} from "react-router-dom";
+import { ClinicalTrailKey } from "../../clinicalTrialKey";
 
 export function EnterInfo() {
     // const [cats, setCats] = React.useState(localStorage.getItem('cats') || null);
@@ -29,8 +30,8 @@ export function EnterInfo() {
         let cancerType = "";
         await fetch('https://clinicaltrialsapi.cancer.gov/api/v2/diseases?type=maintype&type_not=grade&include=name', {
             // mode: "no-cors",
-            headers: {'x-api-key': 'Psscf8rFjhatJA2L57Q2d1Knh6lw4wPd6Y0ZnNW3'},
-        }) // key Psscf8rFjhatJA2L57Q2d1Knh6lw4wPd6Y0ZnNW3
+            headers: {'x-api-key': ClinicalTrailKey.key},
+        }) 
         .then((response) => response.json())
         .then((cancerNames) => {
             // console.log(cancerNames.data);
