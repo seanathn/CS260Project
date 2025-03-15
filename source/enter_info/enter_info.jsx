@@ -3,19 +3,14 @@ import "./enter_info.css"
 import {useNavigate} from "react-router-dom";
 
 export function EnterInfo() {
-    const [cats, setCats] = React.useState(localStorage.getItem('cats') || null);
+    // const [cats, setCats] = React.useState(localStorage.getItem('cats') || null);
+    // const [result, setResult] = React.useState("");
     
-    let catArray;
-    let catsArr = JSON.parse(localStorage["cats"] || null);
-    // console.log(catsArr)
     let name = '';
     let age = '';
     let yapping= false;
     let throwing = false;
     let pain = false;
-    let cancerType = 'placeholder';
-    // let removable = false;
-
     // if (cats) {
     //     React.useEffect(() =>{
     //         if (localStorage.getItem('changeCat?')) {
@@ -26,36 +21,56 @@ export function EnterInfo() {
     //     }, []);
     // }
 
+    // React.useEffect(() => {
+    //         fetchDiagnosis();
+    //     },[]);
+
+    async function fetchDiagnosis() {
+        let cancerType = "";
+        await fetch('https://clinicaltrialsapi.cancer.gov/api/v2/diseases?type=maintype&type_not=grade&include=name', {
+            // mode: "no-cors",
+            headers: {'x-api-key': 'Psscf8rFjhatJA2L57Q2d1Knh6lw4wPd6Y0ZnNW3'},
+        }) // key Psscf8rFjhatJA2L57Q2d1Knh6lw4wPd6Y0ZnNW3
+        .then((response) => response.json())
+        .then((cancerNames) => {
+            // console.log(cancerNames.data);
+            const randomIndex = Math.floor(Math.random()*120);
+            console.log(randomIndex);
+            cancerType = cancerNames.data[randomIndex].name;
+            console.log(cancerType);
+            // setResult(cancerType);
+            // localStorage.setItem("result", result);
+        });
+        return cancerType;
+    }
+
     const navigate = useNavigate();
     
 
     function setCatName(e) {
         name = e.target.value;
-        // console.log(name);
     }
 
     function setCatPain() {
         pain = !pain;
-        // console.log(pain);
     }
 
     function setCatThrowingUp() {
         throwing = !throwing;
-        // console.log(throwing);
     }
 
     function setCatYapping() {
         yapping = !yapping;
-        // console.log(yapping);
     }
 
     function setCatAge(e) {
         age = e.target.value;
-        // console.log(age);
     }
 
-    async function saveCat() {
-        const newCat = {name: name, symtoms: [pain, throwing, yapping], age: age, diagnosis:cancerType};
+    
+
+    async function saveCat(disease) {
+        const newCat = {name: name, symtoms: [pain, throwing, yapping], age: age, diagnosis: disease};
         
         await fetch('/api/cats', {
             method: 'POST',
@@ -64,40 +79,27 @@ export function EnterInfo() {
         });
     }
 
-    function getDiagnosis() {
-
-        catArray=[pain, throwing, yapping, age, cancerType];
+    async function getDiagnosis() {
 
         if (Math.random() > 0.3) {
-            // new Promise(); // api call to get name of cancer
+            const temp = await fetchDiagnosis();
+            // console.log(temp);
+            localStorage.setItem('result', temp);
+            saveCat(temp);
         }
         else {
-            catArray[4] = "UI";
+            localStorage.setItem('result', "UI");
+            saveCat("UI");
         }
 
-        // localStorage.setItem(name, JSON.stringify(catArray));
-        
-        // if (cats) {
-        //     catsArr.push(name);
-        //     setCats(catsArr);
-        //     localStorage.setItem('cats', JSON.stringify(catsArr));
-        // } else {
-        //     setCats(JSON.stringify([name]));
-        //     localStorage.setItem('cats', JSON.stringify([name]));
-        // }
 
+        // console.log(cancerType);
         
-        // console.log(newCat);
-        saveCat();
 
         
 
         navigate('/results');
     }
-
-    // function removeCat() {
-
-    // }
 
 
     return (
