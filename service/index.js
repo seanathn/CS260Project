@@ -99,12 +99,13 @@ apiRouter.post('/cats', verifyAuth, (req, res) => {
 
 // delete cat
 apiRouter.delete('/cats', async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   
   const passedCat = [req.body.name, req.body.symtoms[0], req.body.symtoms[1], req.body.symtoms[2], req.body.age, req.body.diagnosis];
-  console.log(passedCat);
-  // cats.pop(passedCat);
-  // console.log(passedCat);
+  // console.log(cats);
+  cats.pop(passedCat);
+  // console.log(cats);
+  await DB.updateCats(cats, req.body.user);
   res.status(204).end();
 });
 
