@@ -3,13 +3,14 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
+
+// DB.test
 
 const authCookieName = 'token';
 
-let users = [];
-let cats = [];
-
-
+// let users = [];
+// let cats = [];
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -45,6 +46,7 @@ apiRouter.post('/auth/login', async (req, res) => {
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
+      await DB.updateUser(user);
       setAuthCookie(res, user.token);
       res.send({ email: user.email });
       return;
@@ -58,6 +60,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
     delete user.token;
+    DB.updateUser(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -79,31 +82,20 @@ apiRouter.get('/cats', verifyAuth, (_req, res) => {  res.send(cats);
 
 // SubmitCat
 apiRouter.post('/cats', verifyAuth, (req, res) => {
-    // console.log('made to post')
-    // console.log(cats);
-    // console.log(req.body);
-  cats = updateCats(req.body);
-  console.log(cats);
+  const cats = updateCats(req.body);
+  // console.log(cats);
 
   res.send(cats);
 });
 
 // delete cat
 apiRouter.delete('/cats', async (req, res) => {
-  // const user = await findUser('token', req.cookies[authCookieName]);
-  // if (user) {
-  //   delete user.token;
-  // }
-  // res.clearCookie(authCookieName);
-  // cats.pop(req.body);
   console.log(req.body);
-  // const cat = req.body;
-  // console.log(cat.name);
-  // console.log(cat.symtoms);
-  const passedCat = [req.body.name, req.body.symtoms[0], req.body.symtoms[1], req.body.symtoms[2], req.body.age, req.body.diagnosis];
+  
+  // const passedCat = [req.body.name, req.body.symtoms[0], req.body.symtoms[1], req.body.symtoms[2], req.body.age, req.body.diagnosis];
   console.log(passedCat);
-  cats.pop(passedCat);
-  console.log(passedCat);
+  // cats.pop(passedCat);
+  // console.log(passedCat);
   res.status(204).end();
 });
 
@@ -118,37 +110,14 @@ app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
 
-function updateCats(newCat) {
-  // let found = false;
+async function updateCats(newCat) {
   
   const catArray = [newCat.name, newCat.symtoms[0], newCat.symtoms[1], newCat.symtoms[2], newCat.age, newCat.diagnosis];
-  console.log(catArray)
+  // cats.push(catArray);
+  await DB.addCat(newCat);
+  // console.log(cats);
 
-  // for (const [i,cat] of cats.entries()) {
-  //   console.log(cat);
-  //   if (cat == catArray) {
-  //     found = true;
-  //   }
-  // }
-  // if (catArray in cats.entries()) {
-  //   console.log("found");
-  //   found = true;
-  // } else {
-  //   console.log("should add");
-  // }
-
-  // if (!found) {
-  //   // console.log("adding");
-  //   // const catArray = newCat.symtoms.concat([newCat.age, newCat.diagnosis]);
-  //   // console.log(catArray);
-  //   // cats.set(newCat.name, catArray);
-  //   // cats.push([newCat.name].concat(catArray));
-    
-  // }
-  cats.push(catArray);
-  console.log(cats);
-
-  return cats;
+  return;
 }
 
 async function createUser(email, password) {
@@ -159,7 +128,8 @@ async function createUser(email, password) {
     password: passwordHash,
     token: uuid.v4(),
   };
-  users.push(user);
+  await DB.addUser(user);
+  // users.push(user);
 
   return user;
 }
@@ -167,7 +137,12 @@ async function createUser(email, password) {
 async function findUser(field, value) {
   if (!value) return null;
 
-  return users.find((u) => u[field] === value);
+  if (field === 'token') {
+    return DB.getUserByToken(value);
+  }
+
+  // return users.find((u) => u[field] === value);
+  return DB.getUser(value);
 }
 
 // setAuthCookie in the HTTP response

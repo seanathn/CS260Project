@@ -25,11 +25,11 @@ export function Home() {
     const catsRow = [];
     if (cats.length) {
         for (const [i, cat] of cats.entries()) {
-            const cancerOrUI = cat[5];
+            const cancerOrUTI = cat[5];
             catsRow.push(
                 <tr key={i} onClick={() => {removeCat(cat)}}>
                     <td>{cat[0]}</td>
-                    <td>{cancerOrUI}</td>
+                    <td>{cancerOrUTI}</td>
                 </tr>
             )
         }

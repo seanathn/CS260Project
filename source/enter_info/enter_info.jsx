@@ -89,8 +89,8 @@ export function EnterInfo() {
             saveCat(temp);
         }
         else {
-            localStorage.setItem('result', "UI");
-            saveCat("UI");
+            localStorage.setItem('result', "UTI");
+            saveCat("UTI");
         }
 
 

@@ -22,7 +22,7 @@ export default function App() {
         <header className="sticky-top">
           <nav className="navbar navbar-expand-lg bg-light">
             <div className="container-fluid">
-                <div className="navbar-brand"><h1>Cancer or Urinary Infection</h1></div>
+                <div className="navbar-brand"><h1>Cancer or Urinary Track Infection</h1></div>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">

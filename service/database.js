@@ -5,7 +5,7 @@ const url = `mongodb+srv://${config.userName}:${config.password}@${config.hostna
 const client = new MongoClient(url);
 const db = client.db('startup');
 const userCollection = db.collection('user');
-const scoreCollection = db.collection('cat');
+const catCollection = db.collection('cat');
 
 // This will asynchronously test the connection and exit the process if it fails
 (async function testConnection() {
@@ -19,40 +19,46 @@ const scoreCollection = db.collection('cat');
 })();
 
 function getUser(email) {
+  console.log("getUser");
   return userCollection.findOne({ email: email });
 }
 
 function getUserByToken(token) {
+  console.log("getUserBy");
   return userCollection.findOne({ token: token });
 }
 
 async function addUser(user) {
+  console.log("addUser");
   await userCollection.insertOne(user);
 }
 
 async function updateUser(user) {
+  console.log("updateUser");
   await userCollection.updateOne({ email: user.email }, { $set: user });
 }
 
-async function addScore(score) {
-  return scoreCollection.insertOne(score);
+async function addCat(cat) {
+  console.log("addCat");
+  return catCollection.insertOne(cat);
 }
 
-// function getHighScores() {
-//   const query = { score: { $gt: 0, $lt: 900 } };
-//   const options = {
-//     sort: { score: -1 },
-//     limit: 10,
-//   };
-//   const cursor = scoreCollection.find(query, options);
-//   return cursor.toArray();
-// }
+function getUserCats(user) {
+  console.log("getCat");
+  const query = { user: { user } };
+  // const options = {
+  //   sort: { cat: -1 },
+  //   limit: 10,
+  // };
+  const cursor = catCollection.find(query);
+  return cursor.toArray();
+}
 
 module.exports = {
   getUser,
   getUserByToken,
   addUser,
   updateUser,
-  addScore,
-  // getHighScores,
+  addCat,
+  getUserCats,
 };
