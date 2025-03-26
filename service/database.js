@@ -54,9 +54,10 @@ async function removeCat(cat) {
 
 function getUserCats(user) {
   const query = { user: user };
+  const option = {_id: 0, cats: 1};
   // console.log(query);
-  const cursor = catCollection.find(query);
-  // console.log(cursor.toArray());
+  const cursor = catCollection.find(query,option);
+  // console.log(cursor);
   return cursor.toArray();
 }
 

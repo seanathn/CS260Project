@@ -18,11 +18,7 @@ export function Home() {
         .then((response) => response.json())
         .then((allCats) => {
             console.log(allCats);
-            const obj = (allCats);
-            console.log(obj);
-            // for (const [i, cat] of allCats.entries) {}
-            setCats(allCats);
-            console.log(cats);
+            setCats(allCats[0].cats)
         });
     },[]);
 
