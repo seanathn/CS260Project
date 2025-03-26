@@ -6,6 +6,7 @@ import { ClinicalTrailKey } from "../../clinicalTrialKey";
 export function EnterInfo() {
     // const [cats, setCats] = React.useState(localStorage.getItem('cats') || null);
     // const [result, setResult] = React.useState("");
+    const [userName, setUserName] = React.useState(localStorage.userName);
     
     let name = '';
     let age = '';
@@ -71,7 +72,7 @@ export function EnterInfo() {
     
 
     async function saveCat(disease) {
-        const newCat = {name: name, symtoms: [pain, throwing, yapping], age: age, diagnosis: disease};
+        const newCat = {name: name, symtoms: [pain, throwing, yapping], age: age, diagnosis: disease, user: userName};
         
         await fetch('/api/cats', {
             method: 'POST',

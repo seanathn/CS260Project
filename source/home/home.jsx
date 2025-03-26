@@ -7,6 +7,7 @@ export function Home() {
     const navigate = useNavigate();
 
     const [cats, setCats] = React.useState([]);
+    const [user, setUser] = React.useState(localStorage.userName);
 
     React.useEffect(() => {
         // const catNames = localStorage.getItem('cats');
@@ -17,6 +18,9 @@ export function Home() {
         .then((response) => response.json())
         .then((allCats) => {
             console.log(allCats);
+            const obj = (allCats);
+            console.log(obj);
+            // for (const [i, cat] of allCats.entries) {}
             setCats(allCats);
             console.log(cats);
         });
@@ -66,7 +70,7 @@ export function Home() {
         // cats.pop(name);
         // localStorage.setItem('cats', JSON.stringify(cats));
         // {name: name, symtoms: [pain, throwing, yapping], age: age, diagnosis:cancerType};
-        const catInfo = {name: name[0], symtoms: [name[1], name[2], name[3]], age: name[4], diagnosis: name[5]};
+        const catInfo = {name: name[0], symtoms: [name[1], name[2], name[3]], age: name[4], diagnosis: name[5], user: user};
         fetch(`/api/cats`, {
             method: 'DELETE',
             body: JSON.stringify(catInfo),

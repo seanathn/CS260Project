@@ -5,7 +5,11 @@ const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
 
+const cats = [];
+
 // DB.test
+
+let userName;
 
 const authCookieName = 'token';
 
@@ -34,6 +38,7 @@ apiRouter.post('/auth/create', async (req, res) => {
     res.status(409).send({ msg: 'Existing user' });
   } else {
     const user = await createUser(req.body.email, req.body.password);
+    userName = user.email;
 
     setAuthCookie(res, user.token);
     res.send({ email: user.email });
@@ -47,6 +52,7 @@ apiRouter.post('/auth/login', async (req, res) => {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
       await DB.updateUser(user);
+      userName = req.body.email;
       setAuthCookie(res, user.token);
       res.send({ email: user.email });
       return;
@@ -60,6 +66,7 @@ apiRouter.delete('/auth/logout', async (req, res) => {
   const user = await findUser('token', req.cookies[authCookieName]);
   if (user) {
     delete user.token;
+    // userName = "";
     DB.updateUser(user);
   }
   res.clearCookie(authCookieName);
@@ -77,7 +84,9 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // GetCat
-apiRouter.get('/cats', verifyAuth, (_req, res) => {  res.send(cats);
+apiRouter.get('/cats', verifyAuth, async (_req, res) => {  
+  const cats = await DB.getUserCats(userName);
+  res.send(cats);
 });
 
 // SubmitCat
@@ -92,7 +101,7 @@ apiRouter.post('/cats', verifyAuth, (req, res) => {
 apiRouter.delete('/cats', async (req, res) => {
   console.log(req.body);
   
-  // const passedCat = [req.body.name, req.body.symtoms[0], req.body.symtoms[1], req.body.symtoms[2], req.body.age, req.body.diagnosis];
+  const passedCat = [req.body.name, req.body.symtoms[0], req.body.symtoms[1], req.body.symtoms[2], req.body.age, req.body.diagnosis];
   console.log(passedCat);
   // cats.pop(passedCat);
   // console.log(passedCat);
@@ -113,11 +122,21 @@ app.use((_req, res) => {
 async function updateCats(newCat) {
   
   const catArray = [newCat.name, newCat.symtoms[0], newCat.symtoms[1], newCat.symtoms[2], newCat.age, newCat.diagnosis];
-  // cats.push(catArray);
-  await DB.addCat(newCat);
+  // console.log(newCat);
+  // const test = ({user: userName, cats: [{name: newCat.name, symtoms: newCat.symtoms, age: newCat.age, diagnosis: newCat.diagnosis}]});
+  // console.log(test);
+
+  if (!cats.length) {
+    cats.push(catArray);
+    await DB.addCat(newCat);
+  } else {
+    cats.push(catArray);
+    console.log(cats);
+    await DB.updateCats(cats, newCat.user);
+  }
   // console.log(cats);
 
-  return;
+  return await DB.getUserCats(userName);
 }
 
 async function createUser(email, password) {
@@ -129,6 +148,7 @@ async function createUser(email, password) {
     token: uuid.v4(),
   };
   await DB.addUser(user);
+  userName=user.email;
   // users.push(user);
 
   return user;
